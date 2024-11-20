@@ -1,0 +1,90 @@
+/* Estilo geral do formulário */
+body {
+  background-color: #cbe3f8; /* Exemplo de cor de fundo - Alice Blue */
+  font-family: Arial, sans-serif; /* Opcional: Altera a fonte da página */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+    max-width: 800px;
+  }
+  
+  .form-title {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Formulário */
+  form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Caixa de entrada */
+  .form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Títulos e labels */
+  label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Botões */
+  .btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-submit {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-right: 15px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-cancel {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #e2e6ea;
+  }
+  
+  /* Ajustes para as colunas */
+  .row.g-3 .col {
+    margin-bottom: 1rem;
+  }
+  
+  /* Ajustes para responsividade */
+  @media (max-width: 767px) {
+    .col-12 {
+      padding: 0 15px;
+    }
+  
+    .form-group label {
+      font-size: 0.9rem;
+    }
+  }
+  
