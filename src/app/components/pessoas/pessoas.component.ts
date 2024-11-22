@@ -1,31 +1,36 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Importe o CommonModule
-import { ReactiveFormsModule } from '@angular/forms'; // Importando ReactiveFormsModule para formGroup
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; 
+import { HttpClientModule } from '@angular/common/http';  
+import { PessoasService } from '../../pessoas.service';
 
 @Component({
-  selector: 'app-pessoas',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  selector: 'app-pessoas',  
   templateUrl: './pessoas.component.html',
-  styleUrl: './pessoas.component.css'
+  styleUrls: ['./pessoas.component.css']
 })
-export class PessoasComponent {
-
+export class PessoasComponent implements OnInit {
   formulario: any;
   tituloFormulario: string = "";
 
-  constructor(){}
+  constructor(private pessoasService: PessoasService) { }
 
   ngOnInit(): void {
-    this.tituloFormulario = "Nova Pessoa"
+    this.tituloFormulario = "Nova Pessoa";
     this.formulario = new FormGroup({
       nome: new FormControl(null),
       sobrenome: new FormControl(null),
       idade: new FormControl(null),
       profissao: new FormControl(null)
     });
-    
   }
 
+  EnviarFormulario(): void {
+    const pessoa = this.formulario.value;
+
+    this.pessoasService.SalvarPessoa(pessoa).subscribe(resultado => {
+      alert('Pessoa inserida com sucesso');
+    });
+  }
+  
 }

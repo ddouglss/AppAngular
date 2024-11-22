@@ -1,11 +1,26 @@
-import { NgModule } from '@angular/core';
+import { PessoasService } from './pessoas.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component'; // Incluindo o AppComponent no NgModule
-import { AppRoutingModulo } from './app-routing.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { PessoasComponent } from './components/pessoas/pessoas.component';
 
 @NgModule({
-  declarations: [AppComponent],  // Declarar o AppComponent aqui
-  imports: [BrowserModule, AppRoutingModulo],
-  bootstrap: [AppComponent]  // Usar o AppComponent no bootstrap
+  declarations: [AppComponent, PessoasComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
+  ],
+  providers: [HttpClientModule, PessoasService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

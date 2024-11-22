@@ -6,7 +6,7 @@
       <div class="col-12 col-md-6 offset-md-3 border border-light rounded p-5 shadow" *ngIf="formulario">
         <h6 class="form-title">{{tituloFormulario}}</h6>
         <hr />
-        <form class="row g-3" [formGroup]="formulario">
+        <form class="row g-3" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
           <div class="col-12">
             <div class="form-group">
               <label for="nome">Nome:</label>
