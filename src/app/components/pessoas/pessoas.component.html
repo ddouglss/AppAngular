@@ -27,10 +27,11 @@
             <td>{{pessoa.idade}}</td>
             <td>{{pessoa.profissao}}</td>
             <td class="text-center">
-              <button type="button" class="btn btn-sm btn-outline-info me-1" (click)="ExibirFormularioCadastroAtualizacao(pessoa.pessoaId)">
-                <i class="bi bi-pencil-square" ></i> Atualizar
+              <button type="button" class="btn btn-sm btn-outline-info me-1"
+                (click)="ExibirFormularioCadastroAtualizacao(pessoa.pessoaId)">
+                <i class="bi bi-pencil-square"></i> Atualizar
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger">
+              <button type="button" class="btn btn-sm btn-outline-danger" (click)="ExibirConfirmacaoExclusao(pessoa.pessoaId, pessoa.nome, conteudoModal)">
                 <i class="bi bi-trash"></i> Excluir
               </button>
             </td>
@@ -46,7 +47,7 @@
       <div class="col-6 col-md-8 col-lg-6">
         <div class="border rounded p-5 shadow-sm bg-light">
           <h3 class="text-center mb-4">{{ tituloFormulario }}</h3>
-         
+
           <form class="needs-validation" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()" novalidate>
             <div class="mb-3">
               <label for="nome" class="form-label">Nome:</label>
@@ -55,17 +56,20 @@
 
             <div class="mb-3">
               <label for="sobrenome" class="form-label">Sobrenome:</label>
-              <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome" placeholder="Digite o sobrenome" />
+              <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome"
+                placeholder="Digite o sobrenome" />
             </div>
 
             <div class="mb-3">
               <label for="idade" class="form-label">Idade:</label>
-              <input type="number" class="form-control" id="idade" formControlName="idade" placeholder="Digite a idade" />
+              <input type="number" class="form-control" id="idade" formControlName="idade"
+                placeholder="Digite a idade" />
             </div>
 
             <div class="mb-3">
               <label for="profissao" class="form-label">Profissão:</label>
-              <input type="text" class="form-control" id="profissao" formControlName="profissao" placeholder="Digite a profissão" />
+              <input type="text" class="form-control" id="profissao" formControlName="profissao"
+                placeholder="Digite a profissão" />
             </div>
 
             <div class="d-flex justify-content-between">
@@ -82,3 +86,20 @@
     </div>
   </div>
 </body>
+
+<ng-template #conteudoModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirmação de Exclusão</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Prosseguir com a exclusão do(a) {{nomePessoa}}
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
+    <button type="button" class="btn btn-outline-danger" (click)="ExcluirPessoa(pessoaId)">Sim</button>
+  </div>
+</ng-template>
