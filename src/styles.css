@@ -1,1 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset básico */
+body, h1, h2, h3, p, ul, li, a, nav, footer {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Garante que o HTML e body ocupem toda a altura da tela */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Flexbox para estruturar */
+    flex-direction: column;
+    background-color: #f8f9fa; /* Cor clara de fundo */
+}
+
+/* Header - Navbar */
+header .navbar {
+    background-color: #000000; /* Preto */
+}
+
+header .navbar-brand,
+header .navbar-nav .nav-link {
+    color: #ffffff !important; /* Texto branco */
+    text-decoration: none;
+}
+
+header .navbar-brand:hover,
+header .navbar-nav .nav-link:hover {
+    color: #ffc107 !important; /* Amarelo no hover */
+}
+
+header .navbar-toggler {
+    border: none;
+}
+
+/* Main */
+main {
+    flex: 1; /* Expande o conteúdo principal */
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #000000; /* Preto */
+    color: #ffffff; /* Branco */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed; /* Fixa o rodapé no final da viewport */
+    bottom: 0;
+    width: 100%;
+}
+
+/* Links do Footer */
+footer p {
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header .navbar {
+        flex-wrap: wrap;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+}

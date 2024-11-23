@@ -1,21 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; 
-import { HttpClientModule } from '@angular/common/http';  
+import { FormControl, FormGroup } from '@angular/forms';
 import { PessoasService } from '../../pessoas.service';
+import { Pessoa } from '../../Pessoa';
+
+
 
 @Component({
-  selector: 'app-pessoas',  
+  selector: 'app-pessoas',
   templateUrl: './pessoas.component.html',
   styleUrls: ['./pessoas.component.css']
 })
 export class PessoasComponent implements OnInit {
   formulario: any;
   tituloFormulario: string = "";
+  pessoas: Pessoa[] = [];
+
+  visibilidadeTabela: boolean = true;
+  visibilidadeFormulario: boolean = false;
 
   constructor(private pessoasService: PessoasService) { }
 
   ngOnInit(): void {
+
+    this.pessoasService.PegarTodos().subscribe(resultado => {
+      this.pessoas = resultado;
+    });
+
+
+  }
+
+  ExibirFormularioCadastro(): void {
+    this.visibilidadeTabela = false;
+    this.visibilidadeFormulario = true;
     this.tituloFormulario = "Nova Pessoa";
     this.formulario = new FormGroup({
       nome: new FormControl(null),
@@ -25,12 +41,49 @@ export class PessoasComponent implements OnInit {
     });
   }
 
+  ExibirFormularioCadastroAtualizacao(pessoaId: number): void {
+    this.visibilidadeTabela = false;
+    this.visibilidadeFormulario = true;
+
+    this.pessoasService.PegarPeloId(pessoaId).subscribe(resultado => {
+      this.tituloFormulario = `Atualizar ${resultado.nome} ${resultado.sobrenome}`;
+      this.formulario = new FormGroup({
+        pessoaId: new FormControl(resultado.pessoaId),
+        nome: new FormControl(resultado.nome),
+        sobrenome: new FormControl(resultado.sobrenome),
+        idade: new FormControl(resultado.idade),
+        profissao: new FormControl(resultado.profissao)
+      });
+    });
+  }
+
   EnviarFormulario(): void {
     const pessoa = this.formulario.value;
 
-    this.pessoasService.SalvarPessoa(pessoa).subscribe(resultado => {
-      alert('Pessoa inserida com sucesso');
-    });
+    if (pessoa.pessoaId > 0) {
+      this.pessoasService.AtualizarPessoa(pessoa).subscribe(resultado => {
+        this.visibilidadeFormulario = false;
+        this.visibilidadeTabela = true;
+        alert('Pessoa atualizada com sucesso');
+        this.pessoasService.PegarTodos().subscribe(registros => {
+          this.pessoas = registros;
+        });
+      });
+    }
+    else {
+      this.pessoasService.SalvarPessoa(pessoa).subscribe(resultado => {
+        this.visibilidadeFormulario = false;
+        this.visibilidadeTabela = true;
+        alert('Pessoa inserida com sucesso');
+        this.pessoasService.PegarTodos().subscribe(registros => {
+          this.pessoas = registros;
+        });
+      });
+    }
   }
-  
+  Voltar(): void {
+    this.visibilidadeTabela = true;
+    this.visibilidadeFormulario = false;
+  }
+
 }

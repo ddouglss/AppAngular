@@ -1,45 +1,83 @@
 <body>
-    
+  <!-- Tabela -->
+  <div class="container my-5" *ngIf="visibilidadeTabela">
+    <div class="border rounded p-4 shadow-sm bg-white">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Lista de Pessoas</h4>
+        <button type="button" class="btn btn-primary btn-sm" (click)="ExibirFormularioCadastro()">
+          <i class="bi bi-person-plus"></i> Nova Pessoa
+        </button>
+      </div>
+      <hr />
 
-<div class="container p-5">
-    <div class="row">
-      <div class="col-12 col-md-6 offset-md-3 border border-light rounded p-5 shadow" *ngIf="formulario">
-        <h6 class="form-title">{{tituloFormulario}}</h6>
-        <hr />
-        <form class="row g-3" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="nome">Nome:</label>
-              <input type="text" class="form-control form-control-sm" formControlName="nome" />
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Idade</th>
+            <th>Profissão</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pessoa of pessoas">
+            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.sobrenome}}</td>
+            <td>{{pessoa.idade}}</td>
+            <td>{{pessoa.profissao}}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-sm btn-outline-info me-1" (click)="ExibirFormularioCadastroAtualizacao(pessoa.pessoaId)">
+                <i class="bi bi-pencil-square" ></i> Atualizar
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Excluir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="container2 p-5" *ngIf="visibilidadeFormulario">
+    <div class="row justify-content-center">
+      <div class="col-6 col-md-8 col-lg-6">
+        <div class="border rounded p-5 shadow-sm bg-light">
+          <h3 class="text-center mb-4">{{ tituloFormulario }}</h3>
+         
+          <form class="needs-validation" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()" novalidate>
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome:</label>
+              <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Digite o nome" />
             </div>
-          </div>
-  
-          <div class="col-12">
-            <div class="form-group">
-              <label for="sobrenome">Sobrenome:</label>
-              <input type="text" class="form-control form-control-sm" formControlName="sobrenome" />
+
+            <div class="mb-3">
+              <label for="sobrenome" class="form-label">Sobrenome:</label>
+              <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome" placeholder="Digite o sobrenome" />
             </div>
-          </div>
-  
-          <div class="col-12">
-            <div class="form-group">
-              <label for="idade">Idade:</label>
-              <input type="number" class="form-control form-control-sm" formControlName="idade" />
+
+            <div class="mb-3">
+              <label for="idade" class="form-label">Idade:</label>
+              <input type="number" class="form-control" id="idade" formControlName="idade" placeholder="Digite a idade" />
             </div>
-          </div>
-  
-          <div class="col-12">
-            <div class="form-group">
-              <label for="profissao">Profissão:</label>
-              <input type="text" class="form-control form-control-sm" formControlName="profissao" />
+
+            <div class="mb-3">
+              <label for="profissao" class="form-label">Profissão:</label>
+              <input type="text" class="form-control" id="profissao" formControlName="profissao" placeholder="Digite a profissão" />
             </div>
-          </div>
-  
-          <div class="col-12 text-center mt-4">
-            <button type="submit" class="btn btn-submit">Salvar</button>
-            <button type="button" class="btn btn-cancel">Voltar</button>
-          </div>
-        </form>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-save"></i> Salvar
+              </button>
+              <button type="button" class="btn btn-secondary btn-lg" (click)="Voltar()">
+                <i class="bi bi-arrow-left"></i> Voltar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
